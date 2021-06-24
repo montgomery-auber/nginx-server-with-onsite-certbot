@@ -1,0 +1,12 @@
+Question? will each certificate be manually created, then only the certbot lestencrypt script needs to renew ?
+
+for wildcard cert as well as port 80. The letsencrypt creates the certs as user root, so user of nginx 101 in container cant read - to solve I created a container 
+
+nginx wont start unless it has a certificate - needs docker health check or the like
+
+how to restart the nginx service within the container so that it can use the renewed cert - found the correct command
+
+https://community.letsencrypt.org/t/how-to-change-the-installation-path-of-certbot/76479  -  --config-dir /some/other-path
+that doesnt work
+
+MAKE script to edit nginx.conf with correct domain name , so don't bother with generic at all 

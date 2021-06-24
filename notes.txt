@@ -1,0 +1,66 @@
+This is my crazy notes
+
+nginx will not turn on https without certs , so put dummy certs , use dummy.float.i.ng 
+
+I successfully made the certs for dummy.float.i.ng even though no dns entry exists, so I guess that it just checks ownership
+
+
+
+
+
+
+
+
+[root@ip-172-31-14-59 nginx-reverse-proxy-certbot]# docker logs d27baa4b42fc
+Requesting a certificate for hmail.float.i.ng
+
+Certbot failed to authenticate some domains (authenticator: standalone). The Certificate Authority reported these problems:
+  Domain: hmail.float.i.ng
+  Type:   unauthorized
+  Detail: Invalid response from http://hmail.float.i.ng/.well-known/acme-challenge/AqVEYI1L4Ge-Q0r3BE5ajZ08RSVhQzUcFoG0YKmNOPg [3.230.31.10]: "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.21.0"
+
+Hint: The Certificate Authority couldn't exterally verify that the standalone plugin completed the required http-01 challenges. Ensure the plugin is configured correctly and that the changes it makes are accessible from the internet.
+
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Some challenges have failed.
+Ask for help or search for solutions at https://community.letsencrypt.org. See the logfile /var/log/letsencrypt/letsencrypt.log or re-run Certbot with -v for more details.
+[root@ip-172-31-14-59 nginx-reverse-proxy-certbot]#
+
+
+[root@ip-172-31-14-59 nginx-reverse-proxy-certbot]# docker logs certbot
+Requesting a certificate for hmail.float.i.ng
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/hmail.float.i.ng/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/hmail.float.i.ng/privkey.pem
+This certificate expires on 2021-09-20.
+These files will be updated when the certificate renews.
+
+NEXT STEPS:
+- The certificate will need to be renewed before it expires. Certbot can automatically renew the certificate in the background, but you may need to take steps to enable that functionality. See https://certbot.org/renewal-setup for instructions.
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+[root@ip-172-31-14-59 nginx-reverse-proxy-certbot]#
+
+
+mailcow charming steve is messed up
+
+Thu Jun 17 11:41:24 UTC 2021 - Waiting for Nginx... OK
+Thu Jun 17 11:41:25 UTC 2021 - Waiting for domain table... OK
+Thu Jun 17 11:41:25 UTC 2021 - Initializing, please wait...
+Thu Jun 17 11:41:25 UTC 2021 - Using existing domain rsa key /var/lib/acme/acme/key.pem
+Thu Jun 17 11:41:25 UTC 2021 - Using existing Lets Encrypt account key /var/lib/acme/acme/account.pem
+Thu Jun 17 11:41:25 UTC 2021 - Detecting IP addresses... OK
+Thu Jun 17 11:41:50 UTC 2021 - No A or AAAA record found for hostname autodiscover.charm.i.ng
+Thu Jun 17 11:41:53 UTC 2021 - No A or AAAA record found for hostname autoconfig.charm.i.ng
+Thu Jun 17 11:41:54 UTC 2021 - No A or AAAA record found for hostname autodiscover.charmingsteve.com
+Thu Jun 17 11:41:54 UTC 2021 - No A or AAAA record found for hostname autoconfig.charmingsteve.com
+Thu Jun 17 11:41:57 UTC 2021 - No A or AAAA record found for hostname autodiscover.dassie.co.il
+Thu Jun 17 11:41:57 UTC 2021 - No A or AAAA record found for hostname autoconfig.dassie.co.il
+Thu Jun 17 11:42:01 UTC 2021 - No A or AAAA record found for hostname autodiscover.float.i.ng
+Thu Jun 17 11:42:01 UTC 2021 - No A or AAAA record found for hostname autoconfig.float.i.ng
+Thu Jun 17 11:42:04 UTC 2021 - No A or AAAA record found for hostname autodiscover.floatingcloud.io
+Thu Jun 17 11:42:04 UTC 2021 - No A or AAAA record found for hostname autoconfig.floatingcloud.io
+Thu Jun 17 11:42:04 UTC 2021 - Found A record for mail.charmingsteve.com: 143.198.240.95
+Thu Jun 17 11:42:04 UTC 2021 - Cannot match your IP 46.101.25.140 against hostname mail.charmingsteve.com (DNS returned 143.198.240.95)
+Thu Jun 17 11:42:04 UTC 2021 - Cannot validate any hostnames, skipping Let's Encrypt for 1 hour.
+Thu Jun 17 11:42:04 UTC 2021 - Use SKIP_LETS_ENCRYPT=y in mailcow.conf to skip it permanently.

@@ -1,0 +1,43 @@
+#read notes at bottom for  forti
+version: '3.4' 
+services:  
+  certbot:
+    #environment: 
+    #  - FQDN=mydosmain.tech
+    container_name: 'certbot'
+    image: certbot/certbot:v1.16.0
+    restart: "no"
+    volumes:
+      - ./docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ./docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
+      - ./docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+      - ./docker-volumes/.aws:/root/.aws 
+    command: certonly --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d hmail.float.i.ng --staging --webroot -w /data/letsencrypt
+    depends_on: 
+      - nginx 
+
+  nginx:
+    container_name: 'nginx'
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d 
+      - ./docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ./docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
+      - ./docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
+      - ./docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+    entrypoint: "/bin/sh -c 'while :; do sleep 24h & wait $${!}; /usr/sbin/nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+    # get shell
+
+#   docker run -it --rm  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/etc/letsencrypt:/etc/letsencrypt -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/.aws:/root/.aws --entrypoint /bin/sh  certbot/dns-route53
+
+# To upload to a fortigate
+#Then upload 
+#System -> Config -> Certificates -> Import -> Local Certificate. Set type to Certificate. For certificate choose cert.#pem and for key choose privkey.pem
+#VPN -> SSL -> Settings. Change Server Certificate.
+#Repeat process every 90 days
