@@ -97,7 +97,7 @@ nginx      | nginx: [emerg] cannot load certificate "/etc/letsencrypt/live/dummy
 
 
 
-
+https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/
 
 
 
