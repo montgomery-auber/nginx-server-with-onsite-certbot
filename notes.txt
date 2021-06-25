@@ -4,7 +4,7 @@ nginx will not turn on https without certs , so put dummy certs , use dummy.floa
 
 I successfully made the certs for dummy.float.i.ng even though no dns entry exists, so I guess that it just checks ownership
 
-
+C:\Users\rabis\OneDrive\samples\Charming\scripts\nginx-server-with-onsite-certbot\docker-volumes\letsencrypt-docker-nginx\src\letsencrypt\letsencrypt-site\.well-known\acme-challenge
 
 
 
@@ -64,3 +64,40 @@ Thu Jun 17 11:42:04 UTC 2021 - Found A record for mail.charmingsteve.com: 143.19
 Thu Jun 17 11:42:04 UTC 2021 - Cannot match your IP 46.101.25.140 against hostname mail.charmingsteve.com (DNS returned 143.198.240.95)
 Thu Jun 17 11:42:04 UTC 2021 - Cannot validate any hostnames, skipping Let's Encrypt for 1 hour.
 Thu Jun 17 11:42:04 UTC 2021 - Use SKIP_LETS_ENCRYPT=y in mailcow.conf to skip it permanently.
+
+
+ERROR: for nginx  Cannot start service nginx: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:545: container init caused: rootfs_linux.go:76: mounting "/run/desktop/mnt/host/wsl/docker-desktop-bind-mounts/Ubuntu-18.04/236b0b31c4cbacc12c1c39392d71a6882c1a675cee306965a625244e2b2f966d" to rootfs at "/etc/nginx/conf.d/default.conf" caused: mount through procfd: not a directory: unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type
+
+ERROR: for nginx  Cannot start service nginx: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:545: container init caused: rootfs_linux.go:76: mounting "/run/desktop/mnt/host/wsl/docker-desktop-bind-mounts/Ubuntu-18.04/236b0b31c4cbacc12c1c39392d71a6882c1a675cee306965a625244e2b2f966d" to rootfs at "/etc/nginx/conf.d/default.conf" caused: mount through procfd: not a directory: unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type
+ERROR: Encountered errors while bringing up the project.
+steve@DESKTOP-6VK9MUK:/mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/nginx-server-with-onsite-certbot$
+
+
+
+
+
+
+
+
+
+
+Attaching to nginx, certbot
+nginx      | 2021/06/24 21:26:13 [emerg] 9#9: cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | nginx: [emerg] cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx exited with code 1
+certbot    | Account registered.
+certbot    | Requesting a certificate for hmail.float.i.ng
+nginx      | 2021/06/24 21:26:13 [emerg] 9#9: cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | nginx: [emerg] cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | 2021/06/24 21:26:15 [emerg] 9#9: cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | nginx: [emerg] cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | 2021/06/24 21:26:16 [emerg] 8#8: cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+nginx      | nginx: [emerg] cannot load certificate "/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem": BIO_new_file() failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+
+
+
+
+
+
+
+
