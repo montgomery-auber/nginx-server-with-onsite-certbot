@@ -16,21 +16,19 @@ services:
     logging:
       options:
         max-size: 50m
-
-    command:  --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive --nginx -d hmail.float.i.ng 
     # from previous - only creates, doesn't renew
-    #command: certonly --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d hmail.float.i.ng --staging --webroot -w /data/letsencrypt
+    command: certonly --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d hmail.float.i.ng --staging --webroot -w /data/letsencrypt
     depends_on: 
       - nginx 
 
-    #from dragontail/proxy-postgres-3/docker-files/docker-compose.yml - used entrypoint 
+    #from /proxy-postgres-3/docker-files/docker-compose.yml - used entrypoint 
     # command: "/bin/sh -c 'trap exit TERM; while :; do certbot  renew --post-hook /usr/sbin/restart-nginx.sh; done;'"
     ## for acme-challenge - ADD to calender when it needs to be renewed
     # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  renew ; sleep 12h & wait $${!}; done;'"
     # FOR Acme challenge - on website
-    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --webroot --webroot-path /var/www/html  --email devops@dragontailsystems.com --agree-tos --no-eff-email --non-interactive -d ${FQDN}; sleep 12h & wait $${!}; done;'"
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --webroot --webroot-path /var/www/html  --email devops@.com --agree-tos --no-eff-email --non-interactive -d ${FQDN}; sleep 12h & wait $${!}; done;'"
     ##  FOR  route-53
-    #entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --email devops@dragontailsystems.com --agree-tos --no-eff-email --non-interactive -d ${FQDN} --dns-route53 --server https://acme-v02.api.letsencrypt.org/directory ; sleep 12h & wait $${!}; done;'"    
+    #entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --email devops@.com --agree-tos --no-eff-email --non-interactive -d ${FQDN} --dns-route53 --server https://acme-v02.api.letsencrypt.org/directory ; sleep 12h & wait $${!}; done;'"    
 
   nginx:
     container_name: 'nginx'
@@ -41,7 +39,7 @@ services:
       - "443:443"
     volumes:
       - ../docker-volumes/html:/html
-      - ../docker-volumes/etc/nginx/conf.d/simple-certbot-nginx-default.conf:/etc/nginx/conf.d/default.conf  
+      - ../docker-volumes/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
