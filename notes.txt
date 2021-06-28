@@ -1,8 +1,15 @@
 This is my crazy notes
 
+
+
 nginx will not turn on https without certs , so put dummy certs , use dummy.float.i.ng 
 
-I successfully made the certs for dummy.float.i.ng even though no dns entry exists, so I guess that it just checks ownership
+I successfully made the certs for dummy.float.i.ng even though no dns entry exists, so I guess that route53  just checks ownership of domain 
+
+write script that asks question , ie domain name
+
+write sed script to change the link to the new domain 
+
 
 C:\Users\rabis\OneDrive\samples\Charming\scripts\nginx-server-with-onsite-certbot\docker-volumes\letsencrypt-docker-nginx\src\letsencrypt\letsencrypt-site\.well-known\acme-challenge
 
@@ -105,3 +112,35 @@ will need to do docker build to add nginx to image
 
 
 
+
+-rw-r--r-- 1 root root 692 Jun 27 15:31 README
+lrwxrwxrwx 1 root root  40 Jun 27 15:31 cert.pem -> ../../archive/hmail.float.i.ng/cert1.pem
+lrwxrwxrwx 1 root root  41 Jun 27 15:31 chain.pem -> ../../archive/hmail.float.i.ng/chain1.pem
+lrwxrwxrwx 1 root root  45 Jun 27 15:31 fullchain.pem -> ../../archive/hmail.float.i.ng/fullchain1.pem
+lrwxrwxrwx 1 root root  43 Jun 27 15:31 privkey.pem -> ../../archive/hmail.float.i.ng/privkey1.pem
+root@cc9e6b892cb1:/etc/letsencrypt/live/hmail.float.i.ng#
+
+
+https://stackoverflow.com/questions/4427542/how-to-do-sed-like-text-replace-with-python
+
+
+https://certbot.eff.org/docs/using.html
+
+
+
+
+    # from previous - only creates, doesn't renew # https://community.letsencrypt.org/t/hook-after-initially-obtaining-certificate/103484
+    command: certonly --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d hmail.float.i.ng --staging --webroot -w /data/letsencrypt  # --deploy-hook /path/to/script.sh 
+    depends_on: 
+      - nginx 
+
+    #from /proxy-postgres-3/docker-files/docker-compose.yml - used entrypoint 
+    # command: "/bin/sh -c 'trap exit TERM; while :; do certbot  renew --post-hook /usr/sbin/restart-nginx.sh; done;'"
+    ## for acme-challenge - ADD to calender when it needs to be renewed
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  renew ; sleep 12h & wait $${!}; done;'"
+    # FOR Acme challenge - on website
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --webroot --webroot-path /var/www/html  --email devops@.com --agree-tos --no-eff-email --non-interactive -d ${FQDN}; sleep 12h & wait $${!}; done;'"
+    ##  FOR  route-53
+    #entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --email devops@.com --agree-tos --no-eff-email --non-interactive -d ${FQDN} --dns-route53 --server https://acme-v02.api.letsencrypt.org/directory ; sleep 12h & wait $${!}; done;'"    
+ # try this instead - https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/ - nginx plugin rewrites default.conf of nginx 
+     DIDNT work
