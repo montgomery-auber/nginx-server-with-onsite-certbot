@@ -1,9 +1,9 @@
 version: '3.4' 
 services:  
   certbot:
-    environment: 
-      - FQDN=hmail.float.i.ng # the setup script needs to change this
-   container_name: 'certbot'
+    #environment: 
+    #  - FQDN=hmail.float.i.ng 
+    container_name: 'certbot'
     image: certbot/certbot:v1.16.0
     restart: "no"
     volumes:
@@ -25,6 +25,8 @@ services:
      # https://github.com/certbot/certbot/issues/6180#issuecomment-539233867 
     depends_on: 
       - nginx 
+      
+  nginx:  
     container_name: 'nginx'
     image: nginx:latest
     restart: unless-stopped
