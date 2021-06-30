@@ -166,3 +166,5 @@ sed: can't move '/etc/nginx/conf.d/default.confFaKcEc' to '/etc/nginx/conf.d/def
 
 https://unix.stackexchange.com/questions/404189/find-and-sed-string-in-docker-got-error-device-or-resource-busy
 
+https://stackoverflow.com/questions/68191392/password-authentication-is-temporarily-disabled-as-part-of-a-brownout-please-us
+
