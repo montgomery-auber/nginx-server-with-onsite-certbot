@@ -2,6 +2,8 @@ version: '3.4'
 services:  
   certbot:
     container_name: 'certbot'
+    environment: 
+      - FQDN=${FQDN}
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
